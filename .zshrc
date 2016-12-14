@@ -201,3 +201,5 @@ esac
 ## load user .zshrc configuration file
 #
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/shims:$PATH"
