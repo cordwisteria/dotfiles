@@ -1,1 +1,1 @@
-prompt solin
+prompt sorin
