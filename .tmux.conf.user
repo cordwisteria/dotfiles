@@ -4,7 +4,7 @@ set-option -g prefix C-q
 bind-key C-q send-prefix
 
 #Select pane
-unbind l                                                                                                                                                                                                                                      
+unbind l
 bind -r k select-pane -U
 bind -r j select-pane -D
 bind -r h select-pane -L
