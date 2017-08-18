@@ -1,5 +1,5 @@
 #!/bin/sh
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
-ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/keybind.zsh ~/.zsh.after/keybind.zsh
+ln -sf ~/dotfiles/prompt.zsh ~/.zsh.after/prompt.zsh
+ln -sf ~/dotfiles/.tmux.conf.user ~/.tmux.conf.user
 
