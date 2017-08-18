@@ -3,6 +3,13 @@ unbind-key C-b
 set-option -g prefix C-q 
 bind-key C-q send-prefix
 
+#Unable YADR setting
+bind -n C-h send-keys C-h
+bind -n C-j send-keys C-j
+bind -n C-k send-keys C-k
+bind -n C-l send-keys C-l
+bind -n C-\ send-keys C-\
+
 #Select pane
 unbind l
 bind -r k select-pane -U
