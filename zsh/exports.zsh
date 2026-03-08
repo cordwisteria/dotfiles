@@ -41,6 +41,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # bat: Solarized Dark
 export BAT_THEME="Solarized (dark)"
 
+# eza: シンボリックリンクの矢印 (la) と参照先パス (lp) をサーモンピンクに
+# デフォルトの赤 (31) はHDRディスプレイで潰れるため 256色の淡いサーモンピンクに変更
+export EZA_COLORS="lp=38;5;217:la=38;5;217:or=38;5;217"
+
 # zoxide
 export _ZO_ECHO=1  # cdしたあとにパスを表示
 

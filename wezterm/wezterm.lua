@@ -9,8 +9,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 -- ============================================================
 -- Font
 -- ============================================================
-config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" })
-config.font_size = is_windows and 11.0 or 14.0
+config.font_size   = is_windows and 11.0 or 13.5
 config.line_height = 1.2
 
 -- ============================================================

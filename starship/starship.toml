@@ -1,9 +1,10 @@
-# Solarized Dark カラースキームに合わせたStarship設定
+# Powerline スタイル Starship 設定 (Solarized Dark ベース)
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
 $os\
+$username\
 $directory\
 $git_branch\
 $git_status\
@@ -13,43 +14,63 @@ $python\
 $rust\
 $golang\
 $docker_context\
+$fill\
 $cmd_duration\
 $line_break\
 $character"""
+
+# Powerline セパレータ
+# 右向き塗り:  (U+E0B0)
+# 右向き線:  (U+E0B1)
 
 # ============================================================
 # OS アイコン
 # ============================================================
 [os]
 disabled = false
-style = "fg:#586e75"
+format = "[ $symbol]($style)[](fg:#073642 bg:#586e75)"
+style = "bg:#073642 fg:#839496"
 
 [os.symbols]
-Macos = "  "
-Windows = "  "
-Ubuntu = "  "
-Debian = "  "
+Macos = ""
+Windows = ""
+Ubuntu = ""
+Debian = ""
+
+# ============================================================
+# ユーザー名
+# ============================================================
+[username]
+show_always = false
+format = "[ $user ]($style)[](fg:#586e75 bg:#268bd2)"
+style_user = "bg:#586e75 fg:#fdf6e3"
+style_root = "bg:#dc322f fg:#fdf6e3"
 
 # ============================================================
 # ディレクトリ
 # ============================================================
 [directory]
-style = "bold fg:#268bd2"
+style = "bg:#268bd2 fg:#fdf6e3 bold"
+format = "[ $path ]($style)[](fg:#268bd2 bg:#b58900)"
 truncation_length = 4
 truncate_to_repo = true
 read_only = " 󰌾"
+read_only_style = "bg:#268bd2 fg:#fdf6e3"
 
 # ============================================================
-# Git
+# Git ブランチ
 # ============================================================
 [git_branch]
 symbol = " "
-style = "fg:#b58900"
-format = "[$symbol$branch]($style) "
+style = "bg:#b58900 fg:#073642 bold"
+format = "[ $symbol$branch ]($style)[](fg:#b58900 bg:#657b83)"
 
+# ============================================================
+# Git ステータス
+# ============================================================
 [git_status]
-format = '([$all_status$ahead_behind]($style) )'
-style = "fg:#dc322f"
+format = '([ $all_status$ahead_behind ]($style)[](fg:#657b83 bg:#073642))'
+style = "bg:#657b83 fg:#fdf6e3"
 ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
@@ -57,47 +78,53 @@ modified = "!${count}"
 untracked = "?${count}"
 staged = "+${count}"
 deleted = "✘${count}"
+conflicted = "=${count}"
 
 [git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "fg:#cb4b16"
+format = '[\($state( $progress_current/$progress_total)\)]($style) '
+style = "bg:#073642 fg:#cb4b16"
 
 # ============================================================
 # 言語バージョン (アクティブな時だけ表示)
 # ============================================================
 [nodejs]
 symbol = " "
-style = "fg:#859900"
-format = "[$symbol$version]($style) "
+style = "bg:#073642 fg:#859900"
+format = "[ $symbol$version ]($style)"
 
 [python]
 symbol = " "
-style = "fg:#859900"
-format = '[$symbol$version(\($virtualenv\))]($style) '
+style = "bg:#073642 fg:#859900"
+format = '[ $symbol$version(\($virtualenv\)) ]($style)'
 
 [rust]
 symbol = " "
-style = "fg:#cb4b16"
-format = "[$symbol$version]($style) "
+style = "bg:#073642 fg:#cb4b16"
+format = "[ $symbol$version ]($style)"
 
 [golang]
 symbol = " "
-style = "fg:#2aa198"
-format = "[$symbol$version]($style) "
+style = "bg:#073642 fg:#2aa198"
+format = "[ $symbol$version ]($style)"
 
 [docker_context]
 symbol = " "
-style = "fg:#268bd2"
-format = "[$symbol$context]($style) "
+style = "bg:#073642 fg:#268bd2"
+format = "[ $symbol$context ]($style)"
 only_with_files = true
 
 # ============================================================
-# コマンド実行時間
+# 右端の埋め
+# ============================================================
+[fill]
+symbol = " "
+
+# ============================================================
+# コマンド実行時間 (右揃え)
 # ============================================================
 [cmd_duration]
 min_time = 2_000
-format = "[⏱ $duration]($style) "
-style = "fg:#586e75"
+format = "[⏱ $duration](fg:#586e75)"
 
 # ============================================================
 # プロンプト文字
