@@ -1,0 +1,86 @@
+# ============================================================
+# zinit のインストール・ロード
+# ============================================================
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+# ============================================================
+# プラグイン
+# ============================================================
+# 補完の強化
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab           # TAB補完をfzfに
+
+# シンタックスハイライト (最速)
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# 入力補完 (コマンド履歴からサジェスト)
+zinit light zsh-users/zsh-autosuggestions
+
+# fzf-tab の設定 (completionsの後に)
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always $realpath 2>/dev/null || ls $realpath'
+zstyle ':fzf-tab:complete:*' fzf-preview 'bat --color=always $realpath 2>/dev/null'
+zstyle ':completion:*' menu no  # fzf-tabを使うのでmenu補完は無効
+
+# ============================================================
+# zsh オプション
+# ============================================================
+setopt AUTO_CD              # ディレクトリ名だけでcd
+setopt AUTO_PUSHD           # cdの履歴をスタックに積む
+setopt PUSHD_IGNORE_DUPS    # 重複は積まない
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE    # スペースで始まるコマンドは履歴に入れない
+setopt HIST_VERIFY
+setopt SHARE_HISTORY        # 複数ターミナルで履歴を共有
+setopt EXTENDED_HISTORY     # 実行時刻も記録
+
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+# ============================================================
+# 設定ファイルの読み込み
+# ============================================================
+ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+source "${ZSH_CONFIG_DIR}/exports.zsh"
+source "${ZSH_CONFIG_DIR}/aliases.zsh"
+source "${ZSH_CONFIG_DIR}/functions.zsh"
+
+# ============================================================
+# ツールの初期化
+# ============================================================
+# Starship プロンプト
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+# zoxide (スマートcd)
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
+
+# atuin (シェル履歴の強化)
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
+# fzf
+if command -v fzf &>/dev/null; then
+  if [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+    source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+    source /opt/homebrew/opt/fzf/shell/completion.zsh
+  elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+  fi
+fi
+
+# 補完の初期化 (zinitの後)
+autoload -Uz compinit
+compinit
+zinit cdreplay -q
