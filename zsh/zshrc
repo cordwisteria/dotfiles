@@ -19,7 +19,14 @@ zinit light Aloxaf/fzf-tab           # TAB補完をfzfに
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # 入力補完 (コマンド履歴からサジェスト)
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+  forward-char
+  end-of-line
+  vi-end-of-line
+  vi-add-eol
+)
 zinit light zsh-users/zsh-autosuggestions
+bindkey '^Y' autosuggest-accept
 
 # fzf-tab の設定 (completionsの後に)
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always $realpath 2>/dev/null || ls $realpath'
