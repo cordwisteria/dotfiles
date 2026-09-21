@@ -8,6 +8,9 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
+# EDITOR/VISUAL=nvimでもviキーマップへ自動切り替えしない
+bindkey -e
+
 # ============================================================
 # プラグイン
 # ============================================================
@@ -26,7 +29,7 @@ ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
   vi-add-eol
 )
 zinit light zsh-users/zsh-autosuggestions
-bindkey '^Y' autosuggest-accept
+bindkey -M emacs '^Y' autosuggest-accept
 
 # fzf-tab の設定 (completionsの後に)
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always $realpath 2>/dev/null || ls $realpath'

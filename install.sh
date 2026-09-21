@@ -93,12 +93,6 @@ cleanup_old() {
     success "prezto 削除完了"
   fi
 
-  # YADR
-  if [[ -d ~/.yadr ]]; then
-    warn "~/.yadr を削除します"
-    rm -rf ~/.yadr
-    success "YADR 削除完了"
-  fi
 }
 
 # ============================================================
@@ -118,6 +112,9 @@ create_symlinks() {
 
   # WezTerm (Mac / Windows両対応)
   symlink "${DOTFILES_DIR}/wezterm/wezterm.lua" ~/.config/wezterm/wezterm.lua
+
+  # tmux
+  symlink "${DOTFILES_DIR}/tmux/tmux.conf" ~/.tmux.conf
 }
 
 # ============================================================
